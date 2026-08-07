@@ -26,23 +26,23 @@ dependencies = [
     "aiida-core~=2.7.4",
     "ase<4.0,>=3.24",
     "voluptuous<1,>=0.15.2",
-    "janus-core<0.9,>=0.8.3",
-    "aiida-workgraph<0.8, >=0.7.6",
+    "janus-core<0.10,>=0.9.4",
 ]
 
 [project.optional-dependencies]
 mace = [
-    "janus-core[mace]"
+    "janus-core[mace]",
+    "graph-longrange",
 ]
 fpsample = [
     "fpsample<0.4,>=0.3.3",
 ]
-aiida-psuedo = [
-    "aiida-pseudo<2.0.0,>=1.7.0",
-]
-aiida-quantumespresso = [
-    "aiida-quantumespresso<5.0.0,>=4.14.0",
-]
+#aiida-psuedo = [
+#    "aiida-pseudo<2.0.0,>=1.7.0",
+#]
+#aiida-quantumespresso = [
+#    "aiida-quantumespresso<5.0.0,>=4.14.0",
+#]
 
 [project.urls]
 repository = "https://github.com/stfc/aiida-mlip/"
@@ -82,6 +82,9 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "aiida_mlip"
 module-root = ""
+
+[tool.uv.sources]
+graph-longrange = { git = "https://github.com/WillBaldwin0/graph_electrostatics", tag = "v0.4.0" }
 
 [project.entry-points."aiida.data"]
 "mlip.modeldata" = "aiida_mlip.data.model:ModelData"
