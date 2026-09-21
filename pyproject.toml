@@ -10,7 +10,7 @@ authors = [
     { name = "Jacob Wilkins" },
     { name = "Alin M. Elena" },
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python",
     "Intended Audience :: Science/Research",
@@ -32,7 +32,8 @@ dependencies = [
 
 [project.optional-dependencies]
 mace = [
-    "janus-core[mace]"
+    "janus-core[mace]",
+    "graph-longrange",
 ]
 fpsample = [
     "fpsample<0.4,>=0.3.3",
@@ -136,7 +137,7 @@ exclude = [
 
 [tool.ruff]
 extend-exclude = ["conf.py", "*.ipynb"]
-target-version = "py310"
+target-version = "py312"
 
 [tool.ruff.lint]
 # Ignore complexity, non-lowercase
