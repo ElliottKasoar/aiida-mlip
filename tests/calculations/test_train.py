@@ -208,6 +208,27 @@ def test_arch_mismatch(fixture_sandbox, generate_calc_job, janus_code, config_fo
         generate_calc_job(fixture_sandbox, entry_point_name, inputs)
 
 
+def test_run_train_from_scratch(janus_code, config_folder):
+    """Test running train without fine-tuning, so `arch` comes from the inputs."""
+    config = JanusConfigfile(file=config_folder / "mlip_train.yml")
+    inputs = {
+        "metadata": {"options": {"resources": {"num_machines": 1}}},
+        "code": janus_code,
+        "mlip_config": config,
+        "arch": Str("mace_mp"),
+    }
+
+    TrainCalc = CalculationFactory("mlip.train")
+    result = run(TrainCalc, **inputs)
+
+    assert "results_dict" in result
+    obtained_res = result["results_dict"].get_dict()
+    assert "logs" in result
+    assert "model" in result
+    assert result["model"].architecture == "mace_mp"
+    assert obtained_res["loss"] == pytest.approx(0.0641794130206108)
+
+
 def test_run_train(janus_code, config_folder):
     """Test running train with fine-tuning calculation."""
     model_file = config_folder / "test.model"
